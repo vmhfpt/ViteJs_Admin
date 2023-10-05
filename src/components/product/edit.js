@@ -58,7 +58,7 @@ export default function EditProduct(item, renderProducts, upLoadFile, deleteFile
         }
         
     }
-    return (`<div class="modal fade " id="basicModalUpdate" tabindex="-1"  aria-modal="true" role="dialog">
+    return (/*html*/ `<div class="modal fade " id="basicModalUpdate" tabindex="-1"  aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">

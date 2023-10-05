@@ -90,7 +90,7 @@ export default function Product(){
         .then(async (data) => {
           return await Promise.all([
             productService.delete(data.id),
-            deleteFile(data.image)
+            deleteFile(data.image.split('/').pop())
           ])
             .then(([dataDelete, dataFileDelete]) => {
               $('#exampleModal').modal('toggle');
@@ -116,7 +116,7 @@ export default function Product(){
         $(thisData).val().split("\\").pop();
         readURL(thisData);
     }
-    return (`
+    return (/*html*/ `
     <div class="show-popup"></div>
     <div class="modal fade" id="exampleModalSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
@@ -199,6 +199,9 @@ export default function Product(){
         </div>
       </div>
       <hr class="my-5">
+
+
+      
     </div>
     <div class="content-backdrop fade"></div>
   </div>

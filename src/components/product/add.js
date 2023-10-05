@@ -50,7 +50,7 @@ export default function AddProduct(renderProducts, upLoadFile){
             })
         })
     }
-    return (`<div class="modal fade " id="basicModal" tabindex="-1"  aria-modal="true" role="dialog">
+    return (/*html*/`<div class="modal fade " id="basicModal" tabindex="-1"  aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
         <div class="modal-header">

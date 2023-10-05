@@ -17,7 +17,7 @@ export default function AddCategory(renderList){
           
     }
   
-    return(`  <div class="modal fade " id="basicModal" tabindex="-1" aria-modal="true" role="dialog">
+    return( /*html*/ `<div class="modal fade " id="basicModal" tabindex="-1" aria-modal="true" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">

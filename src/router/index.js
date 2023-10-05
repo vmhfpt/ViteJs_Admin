@@ -4,7 +4,7 @@ import Product from "../components/product";
 import Category from "../components/category";
 import Footer from "../components/layout/footer";
 import Header from "../components/layout/header";
-
+import Order from "../components/order";
 
 const router = new Navigo("/");
 let targe = document.querySelector('#app');
@@ -29,12 +29,10 @@ const Router = () => {
     router.on("/category", function () {
         targe.innerHTML = handleLayOut({component : Category})
     });
-    // router.on("/product/edit/:id", function (match) {
-    //     targe.innerHTML = handleLayOut({component :  ProductEdit, param : match.data})
-    // });
-    // router.on("/product/add", function () {
-    //     targe.innerHTML = handleLayOut({component : ProductAdd})
-    // });
+    router.on("/order", function () {
+        targe.innerHTML = handleLayOut({component : Order})
+    });
+  
     
     router.resolve();
     

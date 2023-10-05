@@ -18,7 +18,7 @@ export default function EditCategory(item, renderList){
           $('#exampleModalSuccess').modal('toggle');
         })
     }
-  return (`
+  return ( /*html*/`
   
   <div class="modal fade " id="basicModalEdit" tabindex="-1" aria-modal="true" role="dialog">
   <div class="modal-dialog" role="document">

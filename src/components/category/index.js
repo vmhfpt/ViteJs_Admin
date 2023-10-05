@@ -75,7 +75,7 @@ export default function Category(){
         $(`#${idDelete}`).remove();
       })
     }
-    return (`
+    return ( /*html*/`
     <div class="show-popup"></div>
     <div class="modal fade" id="exampleModalSuccess" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
