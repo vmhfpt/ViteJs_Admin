@@ -4,12 +4,13 @@ import EditCategory from "./edit";
 export default function Category(){
    var idDelete = 0;
     const renderList = async () => {
-        await categoryService.index({ _start: 0, _end: 30 })
+      
+        await categoryService.index()
         .then((result) => {
             $('.loading-animation').remove();
             $('.show-table').empty();
             result.map((item, key) => {
-            $('.show-table').append(`<tr id="${item.id}">
+            $('.show-table').append(`<tr id="${item._id}">
                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#${(key) + 1}</strong></td>
                 <td>${item.name}</td>
                 
@@ -18,8 +19,8 @@ export default function Category(){
                     <div class="dropdown">
                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                     <div class="dropdown-menu">
-                        <a onclick="showEdit(this);" data-id="${item.id}" class="dropdown-item btn-edit-handle" href="javascript:;"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                        <a onclick="confirmDelete(this)" data-delete="${item.id}" class="dropdown-item confirm-delete" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                        <a onclick="showEdit(this);" data-id="${item._id}" class="dropdown-item btn-edit-handle" href="javascript:;"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                        <a onclick="confirmDelete(this)" data-delete="${item._id}" class="dropdown-item confirm-delete" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
                     </div>
                     </div>
                 </td>

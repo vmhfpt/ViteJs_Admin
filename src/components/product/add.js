@@ -1,12 +1,14 @@
 import categoryService from "../../service/categoryService";
 import productService from "../../service/productService";
+import { validatePrice, validateName, validateContent } from "../../service/validateService";
 import { v4 as uuidv4 } from 'uuid';
 
 export default function AddProduct(renderProducts, upLoadFile){
+   var checkName = false, checkPrice = false, checkPriceSale = false, checkContent = false, checkDescription = false;
     categoryService.index()
     .then((data) => {
       data.map((value, key) => {
-         $('#category_id').append(`<option value="${value.id}"> ${value.name}</option>`);
+         $('#category_id').append(`<option value="${value._id}"> ${value.name}</option>`);
       })
     })
     $.getScript('https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js', function () {
@@ -16,6 +18,7 @@ export default function AddProduct(renderProducts, upLoadFile){
     
 
     window.submitAdd = (thisData) => {
+      if(checkName && checkContent && checkDescription && checkPrice && checkPriceSale){
         $(thisData).prop('disabled', true);
         $(thisData).empty();
         $(thisData).append(`<div class="spinner-border spinner-border-sm text-danger" role="status">
@@ -24,7 +27,7 @@ export default function AddProduct(renderProducts, upLoadFile){
 
         let file = $("#customFile")[0].files[0];
         upLoadFile(file).then((data) => {
-            let image = 'http://localhost:3006/uploads/' + data.nameFile;
+            let image = 'http://localhost:3000/files/' + data.nameFile;
             let name = $("#name").val();
             let price = Number($("#price").val());
             let category = $("#category_id").val();
@@ -32,7 +35,6 @@ export default function AddProduct(renderProducts, upLoadFile){
             let description = $("#description").val();
             let content = $("#content").val();
             let dataProduct = {
-                id: uuidv4(),
                 name,
                 price,
                 category_id: category,
@@ -41,6 +43,7 @@ export default function AddProduct(renderProducts, upLoadFile){
                 content,
                 image
             }
+           
             productService.create(dataProduct)
             .then((data) => {
                 renderProducts();
@@ -49,7 +52,28 @@ export default function AddProduct(renderProducts, upLoadFile){
                 $('#exampleModalSuccess').modal('toggle');
             })
         })
+      }
+
+        
     }
+    window.handleInput = (thisData) => {
+      checkName = validateName(thisData, $('.error-name') );
+    } 
+    window.handleInputPrice = (thisData) => {
+      checkPrice = validatePrice(thisData, $('.error-price') );
+    } 
+    window.handleInputPriceSale = (thisData) => {
+      checkPriceSale = validatePrice(thisData, $('.error-price-sale') );
+    }
+  
+    setTimeout(function (){
+      $('#content').on('summernote.keyup', function() {
+        checkContent = validateContent(this, $('.error-content') );
+      });
+      $('#description').on('summernote.keyup', function() {
+        checkDescription = validateContent(this, $('.error-description') );
+      });
+    }, 1000);
     return (/*html*/`<div class="modal fade " id="basicModal" tabindex="-1"  aria-modal="true" role="dialog">
     <div class="modal-dialog modal-xl" role="document">
       <div class="modal-content">
@@ -63,9 +87,10 @@ export default function AddProduct(renderProducts, upLoadFile){
                <div class="row mb-3">
                    <label class="col-sm-2 col-form-label" for="basic-default-name">Name</label>
                    <div class="col-sm-10">
-                     <input type="text" class="form-control" id="name" placeholder="Enter name ...">
+                     <input oninput="handleInput(this)" type="text" class="form-control" id="name" placeholder="Enter name ...">
                    </div>
                  </div>
+                 <span class="text-danger error-name">* Name is required </span>
    
                  <div class="row mb-3">
                    <label class="col-sm-2 col-form-label" for="basic-default-name">Category</label>
@@ -80,16 +105,17 @@ export default function AddProduct(renderProducts, upLoadFile){
                <div class="row mb-3">
                    <label class="col-sm-2 col-form-label" for="basic-default-name">Price</label>
                    <div class="col-sm-10">
-                     <input type="number" class="form-control" id="price" placeholder="Enter price ...">
+                     <input oninput="handleInputPrice(this)" type="number" class="form-control" id="price" placeholder="Enter price ...">
                    </div>
                  </div>
-   
+                 <span class="text-danger error-price">* Price is required </span>
                  <div class="row mb-3">
                    <label class="col-sm-2 col-form-label" for="basic-default-name">Price sale</label>
                    <div class="col-sm-10">
-                       <input type="number" class="form-control" id="price_sale" placeholder="Enter price sale...">
+                       <input oninput="handleInputPriceSale(this)" type="number" class="form-control" id="price_sale" placeholder="Enter price sale...">
                    </div>
                  </div>
+                 <span class="text-danger error-price-sale">* Price sale is required </span>
             </div>
             <div class="col-12">
                <div class="row mb-3">
@@ -98,14 +124,16 @@ export default function AddProduct(renderProducts, upLoadFile){
                        <textarea class="form-control" name="" id="description" cols="30" rows="10"></textarea>
                    </div>
                  </div>
+                 <span class="text-danger error-description">* Description is required </span>
             </div>
             <div class="col-12">
                <div class="row mb-3">
                    <label class="col-sm-12 col-form-label" for="basic-default-name">Content</label>
                    <div class="col-sm-12">
-                       <textarea class="form-control" name="" id="content" cols="30" rows="10"></textarea>
+                       <textarea   class="form-control" name="" id="content" cols="30" rows="10"></textarea>
                    </div>
                  </div>
+                 <span class="text-danger error-content">* Content is required </span>
             </div>
          </div>
 

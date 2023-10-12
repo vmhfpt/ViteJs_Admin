@@ -6,7 +6,7 @@ export default function EditProduct(item, renderProducts, upLoadFile, deleteFile
           $('#description1, #content1').summernote();
         });
         data.map((value, key) => {
-          $('#category_id1').append(`<option ${value.id == item.category_id ? 'selected' : ''} value="${value.id}"> ${value.name}</option>`);
+          $('#category_id1').append(`<option ${value._id == item.category_id ? 'selected' : ''} value="${value._id}"> ${value.name}</option>`);
         })
       });
     window.submitUpdate = (thisData) => {
@@ -25,7 +25,7 @@ export default function EditProduct(item, renderProducts, upLoadFile, deleteFile
         let content = $("#content1").val();
 
         let dataProduct = {
-            id: item.id,
+            _id: item._id,
             name,
             price,
             category_id: category,
@@ -41,7 +41,8 @@ export default function EditProduct(item, renderProducts, upLoadFile, deleteFile
             upLoadFile(file)
             ])
             .then(([dataDelete, dataUpdate]) => {
-                productService.update({ ...dataProduct, image: 'http://localhost:3006/uploads/' + dataUpdate.nameFile }).then((data) => {
+
+                productService.update({ ...dataProduct, image: 'http://localhost:3000/files/' + dataUpdate.nameFile }).then((data) => {
                     $('#basicModalUpdate').modal('toggle');
                     $('#exampleModalLabelCustom').text(`Update product "${dataProduct.name}" success `);
                     $('#exampleModalSuccess').modal('toggle');

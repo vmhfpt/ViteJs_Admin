@@ -1,0 +1,14 @@
+There are two resources in the assignment folder
+You can check each resource by click into link github below
+Let me show you step by step how to install my assignment in your system
++ First step : Download or use git clone command to install folder
++ Second step : After download successfuly, open your terminal tab and enter "npm install", by init npm library will auto download all of libraries in file package.json it will auto generate a folder such as "node_modules" in the folder 
++ Thirdth step : Let open file package.json and look at into line "app": "npm run dev & npm start & npm run server"  -> Enter command "npm run app" on your terminal tab to running start your project
++ Last step : Let copy this address paste on your tab Browser "http://localhost:3006" for Admin page and "http://localhost:5173" for Post Page
+
+Link github to you install or clone below 
+https://github.com/vmhfpt/ViteJs_Admin
+https://github.com/vmhfpt/ViteJs_Post
+
+Happy coding Mrs Tien :))
+

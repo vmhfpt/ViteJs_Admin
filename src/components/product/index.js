@@ -5,11 +5,11 @@ import axios from "axios";
 export default function Product(){
     var idDelete = 0;
     const renderProducts = async () => {
-        productService.index({ _start: 0, _end: 30 }).then(result => {
+        productService.index().then(result => {
             $('.show-table').empty();
             $('.loading-animation').remove();
             result.map((item, key) => {
-              $('.show-table').append(`<tr id="${item.id}">
+              $('.show-table').append(`<tr id="${item._id}">
                   <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#${(key) + 1}</strong></td>
                   <td>${item.name}</td>
                   <td><img class="object-fit-cover" src="${item.image}" width="120" height="150" /> </td>
@@ -18,8 +18,8 @@ export default function Product(){
                     <div class="dropdown">
                       <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                       <div class="dropdown-menu">
-                        <a onclick="editHandle(this);" data-edit="${item.id}" class="dropdown-item edit-handle" href="javascript:;"><i class="bx bx-edit-alt me-1"></i> Edit</a>
-                        <a onclick="confirmDelete(this);" data-delete="${item.id}" class="dropdown-item confirm-delete" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
+                        <a onclick="editHandle(this);" data-edit="${item._id}" class="dropdown-item edit-handle" href="javascript:;"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+                        <a onclick="confirmDelete(this);" data-delete="${item._id}" class="dropdown-item confirm-delete" href="javascript:void(0);"><i class="bx bx-trash me-1"></i> Delete</a>
                       </div>
                     </div>
                   </td>
@@ -30,8 +30,8 @@ export default function Product(){
     renderProducts();
     async function upLoadFile(file) {
         let formData = new FormData();
-        formData.append('avatar', file);
-        return await axios.post('http://localhost:3003/upload', formData, {
+        formData.append('image', file);
+        return await axios.post('http://localhost:3000/products/upload', formData, {
           headers: {
             'Content-Type': 'multipart/form-data'
           }
@@ -44,7 +44,7 @@ export default function Product(){
           });
     }
     async function deleteFile(image) {
-        return await axios.post('http://localhost:3003/delete-file', { image: image })
+        return await axios.post('http://localhost:3000/products/delete-file', { image: image })
           .then(response => {
             return (response.data)
           })
@@ -89,7 +89,7 @@ export default function Product(){
         productService.findOne(idDelete)
         .then(async (data) => {
           return await Promise.all([
-            productService.delete(data.id),
+            productService.delete(data._id),
             deleteFile(data.image.split('/').pop())
           ])
             .then(([dataDelete, dataFileDelete]) => {

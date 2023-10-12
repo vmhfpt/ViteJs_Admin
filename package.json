@@ -9,7 +9,7 @@
     "preview": "vite preview",
     "server": "node server.js",
     "start": "json-server --watch database/db.json --port 3000",
-    "app": "npm run dev & npm start & npm run server"
+    "app": "npm run dev"
   },
   "devDependencies": {
     "json-server": "^0.17.3",

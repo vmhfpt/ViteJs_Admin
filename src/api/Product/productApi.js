@@ -13,8 +13,8 @@ import axiosClient  from "../config.js";
       return axiosClient.get(url);
     },
     updateById : (data) => {
-      const url = '/products/' + data.id;
-      return axiosClient.put(url, data);
+      const url = '/products/' + data._id;
+      return axiosClient.patch(url, data);
     },
     deleteById : (id) => {
       const url = '/products/' + id;

@@ -13,6 +13,18 @@ class OrderService {
     async update(data){
         return await OrderApi.updateOrder(data);
     }   
+    async findOne(id){
+        return await OrderApi.findOne(id);
+    }
+    async getStatisticOrderDay(){
+        return await OrderApi.getStatisticOrderDay();
+    }
+    async getStatisticOrderStatus(){
+        return await OrderApi.getStatisticOrderStatus();
+    }
+    async getOrderSuccess(){
+        return await OrderApi.getOrderSuccess();
+    }
    
 }
 export default new OrderService();

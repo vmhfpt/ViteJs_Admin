@@ -11,11 +11,11 @@ export default function Order(){
               data.map((item, key) => {
                 
                   
-                  $('.show-table').append(`<tr id="${item.id}">
+                  $('.show-table').append(`<tr id="${item._id}">
                 <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>#${(key) + 1}</strong></td>
                 <td>${item.name}</td>
                 <td>${item.phone_number}</td>
-                <td><select onchange="onChangeStatusOrder(this);" data-id="${item.id}" class="form-select form-select-sm w-2  ">
+                <td><select onchange="onChangeStatusOrder(this);" data-id="${item._id}" class="form-select form-select-sm w-2  ">
                 <option value="6" ${item.status == '6' ? 'selected' : ''}>On hold</option>
                 <option value="5"  ${item.status == '5' ? 'selected' : ''}>Processing</option>
                 <option value="4"  ${item.status == '4' ? 'selected' : ''}>Been Shipped</option>
@@ -28,8 +28,8 @@ export default function Order(){
                   <div class="dropdown">
                     <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button>
                     <div class="dropdown-menu">
-                      <a class="dropdown-item btn-edit-handle" href="/order/${item.id}" data-link><i class="prevent-click fa fa-eye mx-1" aria-hidden="true"></i> View Order</a>
-                      <a onclick="detailUser(this);" data-created="${item.createdAt}" data-phone="${item.phone_number}" data-email="${item.email}" data-address="${item.address}" data-name="${item.name}" data-id="${item.id}" class="dropdown-item btn-edit-handle" href="javascript:;"><i class="bx bx-edit-alt me-1"></i> Detail User</a>
+                      <a class="dropdown-item btn-edit-handle " href="/order/${item._id}" data-navigo><i class="fa fa-eye mx-1" aria-hidden="true"></i> View Order</a>
+                      <a onclick="detailUser(this);" data-created="${item.createdAt}" data-phone="${item.phone_number}" data-email="${item.email}" data-address="${item.address}" data-name="${item.name}" data-id="${item._id}" class="dropdown-item btn-edit-handle" href="javascript:;"><i class="bx bx-edit-alt me-1"></i> Detail User</a>
                      
                     </div>
                   </div>
@@ -41,6 +41,7 @@ export default function Order(){
     loadAllOrder();
 
     window.onChangeStatusOrder = (thisData) => {
+      //console.log({status : $(thisData).val() },$(thisData).attr('data-id')); return true;
         orderService.updateStatusOrder({status : $(thisData).val() }, $(thisData).attr('data-id') ).then(() => {
            $('#exampleModalLabelCustom').text('Updated successfully');
            $('#exampleModalSuccess').modal('toggle');

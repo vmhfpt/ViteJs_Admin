@@ -68,7 +68,7 @@ export default function EditUser(item, reLoad){
           email,
           address,
         }
-        //console.log(dataUser)
+    
         orderService.update(dataUser).then((data) => {
           reLoad();
           $('#exampleModalLabelCustom').text('Updated successfully');

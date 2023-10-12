@@ -1,12 +1,17 @@
-export default function Header(){
+
+
+export default function Header(params){
+  
+ 
+
     return ( /*html*/`<div class="layout-wrapper layout-content-navbar">
-    <div class="layout-container">
+    <div class=" layout-container">
      
 
       <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
         <div class="app-brand demo">
-          <a href="index.html" class="app-brand-link">
-            <span class="">POLY</span>
+          <a href="javascript:;" class="app-brand-link">
+            <span class="cc">POLY</span>
             <span class="app-brand-text demo menu-text fw-bolder ms-2">Shop</span>
           </a>
 
@@ -18,31 +23,36 @@ export default function Header(){
         <div class="menu-inner-shadow"></div>
 
         <ul class="menu-inner py-1">
-          <li class="menu-item active">
-            <a href="/" class="menu-link" data-navigo>
+          <li  class="menu-item active">
+            <a  href="/" class="menu-link" data-navigo>
               <i class="menu-icon tf-icons bx bx-home-circle"></i>
               <div data-i18n="Analytics">Dashboard</div>
             </a>
           </li>
-            <li class="menu-item ">
+            <li  class="menu-item ">
             <a href="/product" class="menu-link" data-navigo>
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Product</div>
             </a>
             </li>
-            <li class="menu-item ">
+            <li  class="menu-item ">
             <a href="/category" class="menu-link" data-navigo>
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Category</div>
             </a>
         </li>
-            <li class="menu-item ">
+            <li  class="menu-item ">
             <a href="/order" class="menu-link" data-navigo>
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
             <div data-i18n="Analytics">Order</div>
             </a>
         </li>
-
+        <li  class="menu-item ">
+        <a href="/statistic" class="menu-link" data-navigo>
+        <i class="menu-icon tf-icons bx bx-home-circle"></i>
+        <div data-i18n="Analytics">Statistic</div>
+        </a>
+    </li>
 
        
 
@@ -144,3 +154,6 @@ export default function Header(){
           </div>
         </nav>`);
 }
+
+
+ 
