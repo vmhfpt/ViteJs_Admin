@@ -1,4 +1,6 @@
 import axiosClient  from "../config.js";
+
+
   const  CategoryApi = {
     getListAll : (params) => {
       const url = '/categories';
@@ -20,21 +22,6 @@ import axiosClient  from "../config.js";
         const url = '/categories/' + id;
         return axiosClient.delete(url);
     }
-    // getList : () => {
-    //       const url = '/category';
-    //       return axiosClient.get(url);
-    //   },
-    //   getPostByCategory : (data) => {
-    //     const url = '/post-by-category';
-    //     return axiosClient.post(url, data);
-    //   },
-    //   getPostByTag : (data) => {
-    //     const url = '/post-by-tag';
-    //     return axiosClient.post(url, data);
-    //   },
-    //   getCity :  () => {
-    //     const url = '/category/get-city';
-    //     return axiosClient.get(url,  { headers: { authorization: `Bearer ${localStorage.getItem('refreshToken')}` } });
-    // }
+  
  }
  export default CategoryApi;

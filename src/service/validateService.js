@@ -37,3 +37,29 @@ export const validateContent = (dataThis,elementError) => {
         return false
     }
 }
+
+export const validatePassword = (dataThis,elementError) =>  {
+    var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,}$/;
+    if (regex.test($(dataThis).val())) {
+        $(dataThis).css('border', '1px solid green');
+        elementError.text('');
+        return true;
+    } else {
+        $(dataThis).css('border', '1px solid red');
+        elementError.text('* Password is invalid ');
+        return false
+    }
+}
+
+export const validateEmail = (dataThis, elementError) => {
+    let regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (regex.test($(dataThis).val())) {
+        $(dataThis).css('border', '1px solid green');
+        elementError.text('');
+        return true;
+    } else {
+        $(dataThis).css('border', '1px solid red');
+        elementError.text('* Email is invalid ');
+        return false;
+    }
+}

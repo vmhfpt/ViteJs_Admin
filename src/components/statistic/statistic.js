@@ -1,10 +1,10 @@
 import orderDetailService from "../../service/orderDetailService";
 import orderService from "../../service/orderService";
 export default function Statistic(){
-    orderService.getStatisticOrderStatus()
-    .then((data) => {
-        console.log(data);
-    })
+    // orderService.getStatisticOrderStatus()
+    // .then((data) => {
+    //     console.log(data);
+    // })
     function showAreaChart(result){
         var chart = new CanvasJS.Chart(document.getElementById("chartContainer"), {
           title: {
@@ -74,6 +74,7 @@ export default function Statistic(){
         orderService.getStatisticOrderStatus()
     ])
     .then(([data, nextData, thirdData]) => {
+        
        function check(status, dataArray){
            for (var i = 0; i < dataArray.length; i ++){
              if(dataArray[i].status == status){

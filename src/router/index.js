@@ -7,12 +7,28 @@ import Header from "../components/layout/header";
 import Order from "../components/order";
 import OrderDetail from "../components/orderDetail";
 import Statistic from "../components/statistic/statistic";
-
-const router = new Navigo("/");
+import Login from "../components/admin/login";
+import authService from "../service/authService";
+export const router = new Navigo("/");
 let targe = document.querySelector('#app');
 
-const handleLayOut = (data, params) => {
-    
+const handleLayOut = async (data, params) => {
+   
+    if(data.auth == true){
+       
+        var login = JSON.parse(localStorage.getItem("login"));
+        if(login == null){
+               return Login();
+        }else {
+            try {
+                await authService.authencationToken(login.access_token);
+            } catch (error) {
+                return Login();
+            }
+        }
+    }
+
+
     if(data.layout == false) return data.component(params);
     return `
       ${Header()}
@@ -23,23 +39,30 @@ const handleLayOut = (data, params) => {
 
 
 const Router = () => {
-    router.on('/', function () {
-        targe.innerHTML = handleLayOut({component : Dashboard})
+  
+
+
+
+    router.on('/',async  function () {
+        targe.innerHTML = await handleLayOut({component : Dashboard, auth : true})
     });
-    router.on("/product", function () {
-        targe.innerHTML = handleLayOut({component : Product})
+    router.on('/login',async function () {
+        targe.innerHTML = await handleLayOut({component : Login, layout : false})
     });
-    router.on("/category", function () {
-        targe.innerHTML = handleLayOut({component : Category})
+    router.on("/product",async function () {
+        targe.innerHTML = await handleLayOut({component : Product, auth : true})
     });
-    router.on("/order", function () {
-        targe.innerHTML = handleLayOut({component : Order})
+    router.on("/category",async function () {
+        targe.innerHTML = await handleLayOut({component : Category, auth : true})
     });
-    router.on("/order/:id", function ({ data }) {
-        targe.innerHTML = handleLayOut({component : OrderDetail}, data )
+    router.on("/order",async function () {
+        targe.innerHTML = await handleLayOut({component : Order, auth : true})
     });
-    router.on("/statistic", function ({ data }) {
-        targe.innerHTML = handleLayOut({component : Statistic}, data )
+    router.on("/order/:id",async function ({ data }) {
+        targe.innerHTML = await handleLayOut({component : OrderDetail, auth : true}, data )
+    });
+    router.on("/statistic",async function ({ data }) {
+        targe.innerHTML = await handleLayOut({component : Statistic, auth : true}, data )
     });
     
     router.resolve();

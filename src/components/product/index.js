@@ -3,6 +3,8 @@ import AddProduct from "./add";
 import EditProduct from "./edit";
 import axios from "axios";
 export default function Product(){
+  var login = JSON.parse(localStorage.getItem("login"));
+   var accessToken = login.access_token ? login.access_token : '';
     var idDelete = 0;
     const renderProducts = async () => {
         productService.index().then(result => {
@@ -33,7 +35,8 @@ export default function Product(){
         formData.append('image', file);
         return await axios.post('http://localhost:3000/products/upload', formData, {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${accessToken}`
           }
         })
           .then(response => {
@@ -44,7 +47,15 @@ export default function Product(){
           });
     }
     async function deleteFile(image) {
-        return await axios.post('http://localhost:3000/products/delete-file', { image: image })
+        return await axios.post('http://localhost:3000/products/delete-file', 
+        { image: image },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`
+          }
+        }
+        )
           .then(response => {
             return (response.data)
           })
